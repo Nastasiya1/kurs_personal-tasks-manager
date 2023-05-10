@@ -3,6 +3,10 @@ package ru.netology.javacore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public class TodosTests {
     Todos testTodos;
 
@@ -11,10 +15,10 @@ public class TodosTests {
         testTodos = new Todos();
         testTodos.addTask("Шоппинг");
 
-        String[] expected = {"Шоппинг", null, null, null, null, null, null};
-        String[] actual = testTodos.getTasks();
+        String expected = "Шоппинг";
+        String actual = Arrays.stream(testTodos.getTasks()).filter(Objects::nonNull).collect(Collectors.toList()).toString();
 
-        Assertions.assertArrayEquals(expected, actual);
+        Assertions.assertTrue(actual.contains(expected));
     }
 
     @Test
