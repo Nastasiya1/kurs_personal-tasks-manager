@@ -10,6 +10,17 @@ public class Todos {
     private final int size = 7;
     private String[] tasks = new String[size];
 
+    public Todos() {
+    }
+
+    public Todos(String[] tasks) {
+        this.tasks = tasks;
+    }
+
+    public String[] getTasks() {
+        return tasks;
+    }
+
     public void addTask(String task) {
         for (int i = 0; i < size; i++) {
             if (tasks[i] == null) {
