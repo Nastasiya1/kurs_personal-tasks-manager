@@ -44,6 +44,6 @@ public class Todos {
                 .sorted()
                 .collect(Collectors.toList());
 
-        return sortedTasks.toString();
+        return sortedTasks.toString().replace("[", "").replace("]", "");
     }
 }
