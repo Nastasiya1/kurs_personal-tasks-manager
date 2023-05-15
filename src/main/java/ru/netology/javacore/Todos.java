@@ -1,49 +1,37 @@
 package ru.netology.javacore;
 
-import java.util.Arrays;
-import java.util.List;
-
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.TreeSet;
 
 public class Todos {
     private final int size = 7;
-    private String[] tasks = new String[size];
+    private TreeSet<String> tasks = new TreeSet<>();
 
     public Todos() {
     }
 
-    public Todos(String[] tasks) {
+    public Todos(TreeSet<String> tasks) {
         this.tasks = tasks;
     }
 
-    public String[] getTasks() {
+    public TreeSet<String> getTasks() {
         return tasks;
     }
 
     public void addTask(String task) {
-        for (int i = 0; i < size; i++) {
-            if (tasks[i] == null) {
-                tasks[i] = task;
-                break;
-            }
-        }
+        tasks.add(task);
     }
 
     public void removeTask(String task) {
-        for (int i = 0; i < size; i++) {
-            if (tasks[i] != null && tasks[i].equals(task)) {
-                tasks[i] = null;
-            }
-        }
+        tasks.remove(task);
     }
 
     public String getAllTasks() {
-        List<String> sortedTasks = Arrays.stream(tasks)
-                .filter(Objects::nonNull)
-                .sorted()
-                .collect(Collectors.toList());
-
-        return sortedTasks.toString().replace("[", "").replace("]", "");
+        StringBuilder sb = new StringBuilder();
+        for (String s : tasks) {
+            sb.append(s);
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 }

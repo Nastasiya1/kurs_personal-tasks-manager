@@ -3,9 +3,7 @@ package ru.netology.javacore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.TreeSet;
 
 public class TodosTests {
     Todos testTodos;
@@ -16,31 +14,45 @@ public class TodosTests {
         testTodos.addTask("Шоппинг");
 
         String expected = "Шоппинг";
-        String actual = Arrays.stream(testTodos.getTasks()).filter(Objects::nonNull).collect(Collectors.toList()).toString();
+        String actual = String.valueOf(testTodos.getTasks());
 
         Assertions.assertTrue(actual.contains(expected));
     }
 
     @Test
     void testRemoveTaskMethod() {
-        String[] testTasks = {"Шоппинг", null, null, null, null, null, null};
+        TreeSet<String> testTasks = new TreeSet<>();
+        testTasks.add("Шоппинг");
+        testTasks.add("Йога");
+
         testTodos = new Todos(testTasks);
+
         testTodos.removeTask("Шоппинг");
 
-        String[] actual = {null, null, null, null, null, null, null};
-        String[] expected = testTodos.getTasks();
+        Assertions.assertFalse(testTasks.contains("Шоппинг"));
+    }
 
-        Assertions.assertArrayEquals(expected, actual);
+    @Test
+    void testGetTasksMethod() {
+        TreeSet<String> testTasks = new TreeSet<>();
+        testTasks.add("Шоппинг");
+        testTasks.add("Йога");
+
+        testTodos = new Todos(testTasks);
+        Assertions.assertEquals(testTasks, testTodos.getTasks());
     }
 
     @Test
     void testGetAllTasksMethod() {
-        String[] testTasks = {"Шоппинг", null, null, null, null, null, null};
+        TreeSet<String> testTasks = new TreeSet<>();
+        testTasks.add("Шоппинг");
+        testTasks.add("Йога");
+
         testTodos = new Todos(testTasks);
 
-        String actual = "Шоппинг";
-        String expected = testTodos.getAllTasks();
+        String expected = "Йога Шоппинг";
+        String actual = testTodos.getAllTasks();
 
-        Assertions.assertTrue(expected.contains(actual));
+        Assertions.assertEquals(expected, actual);
     }
 }
